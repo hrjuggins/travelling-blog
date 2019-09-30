@@ -25,21 +25,10 @@ export default class ImageFetch extends Component {
     });
   }
 
-  onSearchChange(e) {
-    e.preventDefault()
-    this.setState({
-      search: e.target.value
-    })
-    
-  }
 
   render() {
-    console.log(this.state);
-    
     return (
       <div className="gallery">
-        <input onChange={this.onSearchChange.bind(this)}/>
-        <h1>Gallery</h1>
         <div>
           <CloudinaryContext cloudName="dsn52dgsa">
             { this.state.gallery.map(data => {
@@ -47,6 +36,7 @@ export default class ImageFetch extends Component {
                 
                 <div key={data.public_id}>
                   <Link to={`/place/${data.public_id}`}>
+                    <h1>{data.public_id}</h1>
                     <Image publicId={data.public_id} style={{width:"200px", height:"200px"}}>
 
                     </Image>
