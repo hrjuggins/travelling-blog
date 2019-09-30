@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import ImageUpload from './pages/ImageUpload'
+import ImageFetch from './pages/ImageFetch'
+import MapPage from './pages/Map'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Do something cool!
-        </a>
-      </header>
+      <ImageUpload />
+      <ImageFetch />
+      <MapPage />
     </div>
   );
 }
