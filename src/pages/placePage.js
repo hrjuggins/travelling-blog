@@ -8,12 +8,12 @@ export default class Place extends Component {
         this.state = {
           gallery: []
         }
-      }
+    }
 
     componentDidMount() {
-        console.log(this.props.match.params.id);
+      console.log(this.props.match.params.id);
         
-    this.fetchImages(this.props.match.params.id) 
+      this.fetchImages(this.props.match.params.id) 
     }
 
     fetchImages(searchTerm) {
@@ -27,9 +27,8 @@ export default class Place extends Component {
         const { params } = this.props.match
         return (
             <div>
-                <h1>Place name</h1>
-                <p>{params.id}</p>
-                <h1>Gallery</h1>
+                <h1 style={{"text-transform": "capitalize"}}>{params.id}</h1>
+                
         <div>
           <CloudinaryContext cloudName="dsn52dgsa">
             { this.state.gallery.map(data => {

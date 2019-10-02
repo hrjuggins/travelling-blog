@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
-import Geocode from "react-geocode";
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import axios from 'axios';
 
 import markerIcon from '../images/marker.png'
 
@@ -10,43 +10,39 @@ const Map = ReactMapboxGl({
   });
 
 
-// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("AIzaSyD3t4C_qPZHkhw1p7FZGWdiCFWsdR31EVU");
- 
-
 export default class MapPage extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            locations: [
-                [-43.172897,-22.906847],
-                [-44.715179, -23.218161],
-                [-46.649197, -23.53510]
-            ],
+            locations: [],
             location: undefined,
         }
     }
-
-    geocodePlace() {
-        // Get latidude & longitude from address.
-        Geocode.fromAddress("Eiffel Tower").then(
-            response => {
-            const { lat, lng } = response.results[0].geometry.location;
-            console.log(lat, lng);
-            },
-            error => {
-            console.error(error);
-            }
-        );
+    
+    componentDidMount() {
+        if (this.props.mains) {
+            this.props.mains.forEach((element) => {
+                this.geocodePlace(element)
+            })
+        }
+    }
+    async geocodePlace(list) {
+        const coord = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${list['public_id']}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
+        console.log(coord.data.features[0].geometry.coordinates);
+        this.setState({
+            locations: [...this.state.locations, coord.data.features[0].geometry.coordinates]
+        })
+        
     }
 
-    render() {
+    render() {  
         const image = new Image(30, 30);
         image.src = markerIcon;
         const images = ["myImage", image];
         return (
+            <div>
             <Map
-                style="mapbox://styles/mapbox/streets-v9"
+                style={"mapbox://styles/mapbox/streets-v9"}
                 containerStyle={{
                     height: '50vh',
                     width: '50vw',
@@ -54,6 +50,7 @@ export default class MapPage extends Component {
                 zoom={[4]}
                 center={this.state.locations[this.state.locations.length-1]}
             >
+                {this.state.locations &&
                 <Layer 
                     type="line"
                     layout={{
@@ -67,22 +64,27 @@ export default class MapPage extends Component {
                 >
                     <Feature coordinates={this.state.locations} />
                 </Layer>
+                }
+                {this.state.locations &&
                 <Layer 
                     type="symbol" 
                     id="marker" 
                     layout={{ "icon-image": "myImage", "icon-allow-overlap": true }}
                     images={images}
                 >
-                    {this.state.locations.map((location) => (
-                        <Feature 
-                            key={location.id} 
-                            coordinates={location} 
-                            onClick={()=>{console.log(location)}}
-                        />
+                {this.state.locations.map((location) => (
+                    <Feature 
+                        key={location.id} 
+                        coordinates={location} 
+                        onClick={()=>{console.log(location)}}
+                    />
                     ))}
-                    
                 </Layer>
+                }   
+                
             </Map>
+        </div>
+            
         )
     }
 }
