@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
-import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import markerIcon from '../images/marker.png'
 
@@ -12,46 +12,53 @@ const Map = ReactMapboxGl({
 
 export default class MapPage extends Component {
     constructor(props) {
-        super(props)
-        this.state = { 
-            locations: [],
-            location: undefined,
+        super(props);
+        this.state = {
+            toPlace: false,
+            place: false,
         }
-    }
-    
-    componentDidMount() {
-        if (this.props.mains) {
-            this.props.mains.forEach((element) => {
-                this.geocodePlace(element)
-            })
-        }
-    }
-    async geocodePlace(list) {
-        const coord = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${list['public_id']}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
-        console.log(coord.data.features[0].geometry.coordinates);
-        this.setState({
-            locations: [...this.state.locations, coord.data.features[0].geometry.coordinates]
-        })
-        
     }
 
-    render() {  
+    markerClick(place) {
+        console.log(place);
+        
+        this.setState({
+            toPlace: true,
+            place: place
+        })
+    }
+    markerHover(place) {
+        console.log(place);
+    }
+
+    render() {         
+        const data = this.props.data
+        const coords = []
+        // create new array of array of coords
+        data && Object.keys(data).map(item => {
+            coords.push(data[item]['coords']);
+        });
         const image = new Image(30, 30);
         image.src = markerIcon;
         const images = ["myImage", image];
+
+        if (this.state.toPlace) {
+            return <Redirect to={{pathname: `/place/${this.state.place}`, state: {"data": data}}}/>
+        }
+
         return (
             <div>
             <Map
-                style={"mapbox://styles/mapbox/streets-v9"}
+                style={"mapbox://styles/mapbox/satellite-v9"}
                 containerStyle={{
-                    height: '50vh',
-                    width: '50vw',
+                    height: '100%',
+                    width: '55vw',
                 }}
                 zoom={[4]}
-                center={this.state.locations[this.state.locations.length-1]}
+                center={coords[0]}
             >
-                {this.state.locations &&
-                <Layer 
+                
+                 <Layer 
                     type="line"
                     layout={{
                         "line-join": "round",
@@ -62,26 +69,26 @@ export default class MapPage extends Component {
                         "line-width": 6
                     }}
                 >
-                    <Feature coordinates={this.state.locations} />
+                    <Feature coordinates={coords} />
                 </Layer>
-                }
-                {this.state.locations &&
+                
+            
                 <Layer 
                     type="symbol" 
                     id="marker" 
                     layout={{ "icon-image": "myImage", "icon-allow-overlap": true }}
                     images={images}
                 >
-                {this.state.locations.map((location) => (
+                {Object.keys(data).map(item => (
                     <Feature 
-                        key={location.id} 
-                        coordinates={location} 
-                        onClick={()=>{console.log(location)}}
+                        key={item.id} 
+                        coordinates={data[item]['coords']} 
+                        onClick={()=>{this.markerClick(item)}}
+                        
+                        
                     />
-                    ))}
-                </Layer>
-                }   
-                
+                ))}
+                </Layer> 
             </Map>
         </div>
             
