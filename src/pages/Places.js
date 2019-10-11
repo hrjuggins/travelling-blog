@@ -4,8 +4,9 @@ import { CloudinaryContext, Image } from 'cloudinary-react';
 import '../App.css';
 
 export default class Places extends Component {
+  
   render() {
-    const data = this.props.data
+    const data = this.props.data 
     return (
       <div className="gallery" style={styles.gallery}>
           <CloudinaryContext cloudName="dsn52dgsa">
@@ -13,7 +14,7 @@ export default class Places extends Component {
               return (
                 <div key={i}>
                   <Link to={{pathname: `/place/${place}`, state: {"data": data}}} style={styles.list}>
-                    <h1 style={{"textTransform": "capitalize"}}>{place}</h1>
+                    <h1 style={{"textTransform": "capitalize", "fontWeight": "normal"}}>{place}</h1>
                     {data[place]['images'].map((item, i) => {
                         if (item['main'])
                         return <Image key={i} publicId={item['public_id']} style={{width: '100px', height:"90%"}}></Image>

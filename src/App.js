@@ -256,7 +256,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // this.fetchImages("main")
+    this.fetchImages("main")
   }
   render() {
     if (window.innerWidth > 600) {

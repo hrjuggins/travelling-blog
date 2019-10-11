@@ -49,10 +49,10 @@ export default class MapPage extends Component {
         return (
             <div>
             <Map
-                style={"mapbox://styles/mapbox/satellite-v9"}
+                style={"mapbox://styles/mapbox/satellite-streets-v9"}
                 containerStyle={{
                     height: '100%',
-                    width: '55vw',
+                    width: '45vw',
                 }}
                 zoom={[4]}
                 center={coords[0]}
@@ -72,7 +72,7 @@ export default class MapPage extends Component {
                     <Feature coordinates={coords} />
                 </Layer>
                 
-            
+                {data && 
                 <Layer 
                     type="symbol" 
                     id="marker" 
@@ -81,7 +81,7 @@ export default class MapPage extends Component {
                 >
                 {Object.keys(data).map(item => (
                     <Feature 
-                        key={item.id} 
+                        key={data[item]['order']} 
                         coordinates={data[item]['coords']} 
                         onClick={()=>{this.markerClick(item)}}
                         
@@ -89,9 +89,9 @@ export default class MapPage extends Component {
                     />
                 ))}
                 </Layer> 
+                }
             </Map>
         </div>
-            
         )
     }
 }

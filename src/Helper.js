@@ -1,9 +1,27 @@
 import axios from 'axios';
 
+function reverseOrderData(dataToSort) {
+    const orderedKeys = []
+    const orderedData = {}
+    Object.keys(dataToSort).forEach(key => {
+      orderedKeys.push(dataToSort[key]['order'])
+    })
+    orderedKeys.sort().reverse()
+    orderedKeys.forEach(key => {
+      Object.keys(dataToSort).forEach(obj => {
+        if (dataToSort[obj]['order'] == key) {
+          orderedData[obj] = dataToSort[obj]
+        }
+      })
+    })
+    return orderedData
+  }
+
 // Fetch images from cloudinary
 export function fetchImages(searchTerm) {
-    axios.get(`http://localhost:5000/`)
-    .then(res => {
-      this.setState({data: res.data});
-    });
+    console.log('api called');
+    // axios.get(`http://localhost:5000/`)
+    // .then(res => {
+    //   this.setState({data: reverseOrderData(res.data)});
+    // });
   }
