@@ -21,23 +21,22 @@ export default class App extends Component {
     this.fetchImages("main")
   }
   render() {
-    if (window.innerWidth > 600) {
+    if (window.innerWidth < 600) {
       return (
-        
         <div style={styles.container}>
           <Title title={'Travel Map'} />
-            <div style={styles.big}> 
+            <div style={styles.small}> 
               <MapPage data={this.state.data}/>
               <Places data={this.state.data}/>
             </div> 
         </div>
       )
     }
-    if (window.innerWidth < 600) {
-      return (
+    if (window.innerWidth > 600) {
+      return (  
         <div style={styles.container}>
           <Title title={'Travel Map'} />
-            <div style={styles.small}> 
+            <div style={styles.big}> 
               <MapPage data={this.state.data}/>
               <Places data={this.state.data}/>
             </div> 
