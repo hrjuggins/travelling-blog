@@ -24,6 +24,8 @@ class Main extends Component {
             <div className="App" style={styles.outer}>
                 <Router>
                     <Route exact={true} path='/' component={App} />
+                    <Route path='/map' component={MapPage} />
+                    <Route path='/places' component={Places} />                    
                     <Route path='/place/:id' component={Place} />
                 </Router>
             </div>

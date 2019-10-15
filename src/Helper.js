@@ -20,8 +20,8 @@ function reverseOrderData(dataToSort) {
 // Fetch images from cloudinary
 export function fetchImages(searchTerm) {
     console.log('api called');
-    // axios.get(`http://localhost:5000/`)
-    // .then(res => {
-    //   this.setState({data: reverseOrderData(res.data)});
-    // });
+    axios.get(`https://n9fufwwrh3.execute-api.us-east-1.amazonaws.com/dev`)
+    .then(res => {
+      this.setState({data: reverseOrderData(res.data)});
+    });
   }

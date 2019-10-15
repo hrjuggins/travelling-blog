@@ -31,6 +31,8 @@ export default class Place extends Component {
     const previousPlace = Object.keys(stateData).find(ele => stateData[ele]['order'] === (currentOrder - 1).toString())
     const nextPlace = Object.keys(stateData).find(ele => stateData[ele]['order'] === (currentOrder + 1).toString())
 
+    const width = window.innerWidth
+
     return (
       <div style={styles.container}>
         <Title title={params.id} />
@@ -38,7 +40,7 @@ export default class Place extends Component {
           <img src={mapIcon} alt={'map icon'} style={styles.icon}/>
         </Link>
           <CloudinaryContext cloudName="dsn52dgsa" style={styles.images}>
-            <div style={{'columnCount':3, 'columnGap': "25px"}}>
+            <div style={{...width < 600 ? '' : styles.gallery}}>
             { (data) && data['images'].map(images  => {
               return (
                   <Image 
@@ -81,13 +83,17 @@ const styles = {
     fontFamily: 'Rozha One'
   },
   container: {
-    height: 'calc(100% - 163px)',
+    height: 'calc(100% - 136px)',
   },
   icon: {
     height: '50px',
     position: 'absolute',
     top: '25px',
     left: '25px',
+  },
+  gallery: {
+    columnCount: 3, 
+    columnGap: '25px',
   },
   images: {
     height: '100%',
@@ -107,20 +113,22 @@ const styles = {
   previous: {
     position: 'absolute',
     top: '50%',
-    left: '-160px',
+    left: '-180px',
     transformOrigin: 'center',
     transform: 'rotate(90deg)',
     width: '400px',
+    height: '45px',
     textAlign: 'center',
     textDecoration: 'None',
   },
   next: {
     position: 'absolute',
     top: '50%',
-    right: '-160px',
+    right: '-177px',
     transformOrigin: 'center',
     transform: 'rotate(-90deg)',
     width: '400px',
+    height: '45px',
     textAlign: 'center',
     textDecoration: 'None',
   },

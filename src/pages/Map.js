@@ -46,14 +46,12 @@ export default class MapPage extends Component {
             return <Redirect to={{pathname: `/place/${this.state.place}`, state: {"data": data}}}/>
         }
 
+        const width = window.innerWidth
+
         return (
-            <div>
             <Map
                 style={"mapbox://styles/mapbox/satellite-streets-v9"}
-                containerStyle={{
-                    height: '100%',
-                    width: '45vw',
-                }}
+                containerStyle={{...width < 600 ? styles.small : styles.big}}
                 zoom={[4]}
                 center={coords[0]}
             >
@@ -91,8 +89,17 @@ export default class MapPage extends Component {
                 </Layer> 
                 }
             </Map>
-        </div>
         )
     }
 }
 
+const styles = {
+    big: {
+        height: '100%',
+        width: '45vw',
+    },
+    small: {
+        height: '100vh',
+        width: '100vw',
+    }
+}

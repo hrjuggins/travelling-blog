@@ -7,8 +7,9 @@ export default class Places extends Component {
   
   render() {
     const data = this.props.data 
+    const width = window.innerWidth
     return (
-      <div className="gallery" style={styles.gallery}>
+      <div className="gallery" style={{...width < 600 ? styles.small : styles.big}}>
           <CloudinaryContext cloudName="dsn52dgsa">
             { (data) && Object.keys(data).map((place, i) => {
               return (
@@ -30,8 +31,13 @@ export default class Places extends Component {
 }
 
 const styles = {
-  gallery: {
+  big: {
     width: '45vw',
+    overflow: 'scroll',
+  },  
+  small: {
+    marginTop: '25px',
+    width: '90vw',
     overflow: 'scroll',
   },
   list: {
