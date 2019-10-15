@@ -113,7 +113,7 @@ const styles = {
   previous: {
     position: 'absolute',
     top: '50%',
-    left: '-180px',
+    left: '-175px',
     transformOrigin: 'center',
     transform: 'rotate(90deg)',
     width: '400px',
@@ -124,7 +124,7 @@ const styles = {
   next: {
     position: 'absolute',
     top: '50%',
-    right: '-177px',
+    right: '-175px',
     transformOrigin: 'center',
     transform: 'rotate(-90deg)',
     width: '400px',

@@ -36,7 +36,7 @@ class Main extends Component {
 
 const styles = {
     outer: {
-      height: window.innerHeight
+      height: '100%',
     },
     heading: {
       marginTop: 0,
