@@ -99,7 +99,7 @@ const styles = {
         width: '45vw',
     },
     small: {
-        height: '40vh',
+        height: '40%',
         width: '100vw',
     }
 }

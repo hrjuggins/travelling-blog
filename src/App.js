@@ -58,7 +58,7 @@ const styles = {
   small: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     height: '100%',
     width: '100%',
     flexDirection: 'column',
