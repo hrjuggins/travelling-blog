@@ -38,7 +38,7 @@ export default class MapPage extends Component {
         data && Object.keys(data).map(item => {
             coords.push(data[item]['coords']);
         });
-        const image = new Image(30, 30);
+        const image = new Image(20, 20);
         image.src = markerIcon;
         const images = ["myImage", image];
 
@@ -64,7 +64,7 @@ export default class MapPage extends Component {
                     }}
                     paint={{
                         "line-color": "#f78f8f",
-                        "line-width": 6
+                        "line-width": 4
                     }}
                 >
                     <Feature coordinates={coords} />

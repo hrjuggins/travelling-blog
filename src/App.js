@@ -7,7 +7,7 @@ import Places from './pages/Places'
 import MapPage from './pages/Map'
 import Title from './index'
 
-import { fetchImages, geocodePlace } from './Helper'
+import { fetchImages } from './Helper'
 
 export default class App extends Component {
   constructor(props) {
@@ -27,7 +27,10 @@ export default class App extends Component {
           <Title title={'Travel Map'} />
             <div style={styles.small}> 
               <MapPage data={this.state.data}/>
-              <Places data={this.state.data}/>
+              {Object.entries(this.state.data).length == 0 ? 
+                <img src={require(`./images/loading${Math.round(Math.random()*6)}.gif`)} height='100px' style={{'margin': 'auto'}} /> :
+                <Places data={this.state.data}/>
+               }
             </div> 
         </div>
       )
@@ -38,7 +41,10 @@ export default class App extends Component {
           <Title title={'Travel Map'} />
             <div style={styles.big}> 
               <MapPage data={this.state.data}/>
-              <Places data={this.state.data}/>
+               {Object.entries(this.state.data).length == 0 ? 
+                <img src={require(`./images/loading${Math.round(Math.random()*6)}.gif`)} height='100px' style={{'margin': 'auto'}} /> :
+                <Places data={this.state.data}/>
+               }
             </div> 
         </div>
       )

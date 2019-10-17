@@ -88,8 +88,8 @@ const styles = {
   icon: {
     height: '50px',
     position: 'absolute',
-    top: '25px',
-    left: '25px',
+    top: '15px',
+    left: '2px',
   },
   gallery: {
     columnCount: 3, 

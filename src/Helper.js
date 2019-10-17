@@ -21,6 +21,7 @@ function reverseOrderData(dataToSort) {
 export function fetchImages(searchTerm) {
     console.log('api called');
     axios.get(`https://n9fufwwrh3.execute-api.us-east-1.amazonaws.com/dev`)
+    // axios.get(`http://localhost:5000/`)
     .then(res => {
       this.setState({data: reverseOrderData(res.data)});
     });
